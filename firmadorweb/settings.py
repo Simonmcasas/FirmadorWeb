@@ -6,6 +6,12 @@ from pathlib import Path
 # Definir BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Clave secreta para producción
 SECRET_KEY = os.environ.get('SECRET_KEY', 'Z-DMbpU5soPgnKdGoHXoFhHX-KTzUqt53L5lK-dN41CyuJzOjAMsgAQ2CfY6WcGErdM')
 
@@ -86,8 +92,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
