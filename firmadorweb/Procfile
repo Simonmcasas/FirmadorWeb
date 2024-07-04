@@ -1,1 +1,1 @@
-web: gunicorn documentos.wsgi
+web: gunicorn firmadorweb.wsgi
