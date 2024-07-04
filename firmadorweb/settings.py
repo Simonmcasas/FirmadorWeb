@@ -15,6 +15,8 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['https://firmador-web-ab788fc76e68.herokuapp.com/', 'https://tukiee.com']
 
 INSTALLED_APPS = [
+    'documentos',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
