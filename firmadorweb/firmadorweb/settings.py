@@ -12,7 +12,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import dj_database_url
 
+
+
+#Configuración para heroku
+django_heroku.settings(locals())
 
 
 
@@ -32,7 +38,7 @@ SECRET_KEY = 'django-insecure-)m$e(7*6snkox-dy00s=jsj34hw9sai-d*oa!iwoy@o0kv8=8p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com', 'tukiee.com']
 
 
 # Application definition
@@ -83,10 +89,7 @@ WSGI_APPLICATION = 'firmadorweb.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
 
