@@ -10,9 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'Z-DMbpU5soPgnKdGoHXoFhHX-KTzUqt53L5lK-dN41CyuJzOjAMsgAQ2CfY6WcGErdM')
 
 # Otras configuraciones de Django...
-DEBUG = os.environ.get('DEBUG con muchas otras variables', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['firmador-web-ab788fc76e68.herokuapp.com', 'tukiee.com']
+ALLOWED_HOSTS = ['https://firmador-web-ab788fc76e68.herokuapp.com/', 'https://tukiee.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -57,9 +57,7 @@ WSGI_APPLICATION = 'firmadorweb.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://USER:PASSWORD@HOST:PORT/NAME',
-        conn_max_age=600,
-        ssl_require=True
+        default=os.environ.get('DATABASE_URL')
     )
 }
 
