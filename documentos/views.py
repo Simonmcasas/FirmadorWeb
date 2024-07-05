@@ -9,8 +9,11 @@ class DocumentUploadView(APIView):
     def post(self, request, format=None):
         file = request.FILES.get('file')
         redirect_url = request.data.get('redirect_url')
-        if file and file.content_type == 'application/pdf' and redirect_url:
-            document = Document(file=file, redirect_url=redirect_url)
+        dni = request.data.get('dni')
+        email = request.data.get('email')
+        nombre_y_apellido = request.data.get('nombre_y_apellido')
+        if file and file.content_type == 'application/pdf' and redirect_url and dni and email and nombre_y_apellido:
+            document = Document(file=file, redirect_url=redirect_url, dni=dni, email=email, nombre_y_apellido=nombre_y_apellido)
             document.save()
             serializer = DocumentSerializer(document)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -31,7 +34,14 @@ class DocumentDetailView(APIView):
     def put(self, request, pk, format=None):
         document = self.get_object(pk)
         data = request.data.copy()
+
+        # Ignorar cambios en los atributos inalterables
+        data.pop('file', None)
         data.pop('redirect_url', None)
+        data.pop('dni', None)
+        data.pop('email', None)
+        data.pop('nombre_y_apellido', None)
+
         serializer = DocumentSerializer(document, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
