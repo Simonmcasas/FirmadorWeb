@@ -12,7 +12,7 @@ class DocumentUploadView(APIView):
         dni = request.data.get('dni')
         email = request.data.get('email')
         nombre_y_apellido = request.data.get('nombre_y_apellido')
-        if file and file.content_type == 'application/pdf' and redirect_url and dni and email and nombre_y_apellido:
+        if file and file.content_type == 'application/pdf':
             document = Document(file=file, redirect_url=redirect_url, dni=dni, email=email, nombre_y_apellido=nombre_y_apellido)
             document.save()
             serializer = DocumentSerializer(document)
