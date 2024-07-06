@@ -12,12 +12,20 @@ class DocumentUploadView(APIView):
         dni = request.data.get('dni')
         email = request.data.get('email')
         nombre_y_apellido = request.data.get('nombre_y_apellido')
-        if file and file.content_type == 'application/pdf':
-            document = Document(file=file, redirect_url=redirect_url, dni=dni, email=email, nombre_y_apellido=nombre_y_apellido)
+
+        if file and file.content_type == 'application/pdf' and redirect_url and dni and email and nombre_y_apellido:
+            document = Document(
+                file=file, 
+                redirect_url=redirect_url, 
+                dni=dni, 
+                email=email, 
+                nombre_y_apellido=nombre_y_apellido
+            )
             document.save()
             serializer = DocumentSerializer(document)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response({'error': 'Invalid file type or missing redirect URL'}, status=status.HTTP_400_BAD_REQUEST)
+    
+        return Response({'error': 'Invalid file type or missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
 
 class DocumentDetailView(APIView):
     def get_object(self, pk):
